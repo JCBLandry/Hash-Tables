@@ -44,7 +44,6 @@ class HashTable:
 
 
     def insert(self, key, value):
-        # '''
         # Store the value with the given key.
         i = self._hash_mod(key)
         # # Part 1: Hash collisions should be handled with an error warning. (Think about and
@@ -57,6 +56,7 @@ class HashTable:
             while pos.next != None:
                 pos = pos.next
             pos.next = LinkedPair(key, value)
+            print( 'Key: ' + key + ' and Value: ' + value + ' Inserted!')
         # # Part 2: Change this so that hash collisions are handled with Linked List Chaining.
 
         # Fill this in.
@@ -64,37 +64,38 @@ class HashTable:
 
     def remove(self, key):
         i = self._hash.mod(key)
-        # '''
         # Print a warning if the key is not found.
         if self.storage[i] == None:
             print('Key not found!')
         # Remove the value stored with the given key.
         else:
             self.storage[i] = None
-        # Fill this in.
-        # '''
-        pass
+        
+        
 
 
     def retrieve(self, key):
-        '''
-        Retrieve the value stored with the given key.
-
-        Returns None if the key is not found.
-
-        Fill this in.
-        '''
-        pass
+        i = self._hash_mod(key)
+        # Returns None if the key is not found.
+        if self.storage[i] == None:
+            return None
+        # Retrieve the value stored with the given key.
+        else:
+            pos = self.storage[i]
+            while pos.key != key:
+                pos = pos.next
+            return pos.value
+        
 
 
     def resize(self):
-        '''
-        Doubles the capacity of the hash table and
-        rehash all key/value pairs.
-
-        Fill this in.
-        '''
-        pass
+        # self.capacity *= 2 # double the size
+        # new_storage = [None] * self.capacity
+        # # move all elements from old, into new
+        # for i in range(self.capacity):
+        #     new_storage[i] = self.storage[i]
+        # # set the new to storage
+        # self.storage = new_storage
 
 
 
