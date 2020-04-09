@@ -71,9 +71,6 @@ class HashTable:
         else:
             self.storage[i] = None
         
-        
-
-
     def retrieve(self, key):
         i = self._hash_mod(key)
         # Returns None if the key is not found.
@@ -96,8 +93,7 @@ class HashTable:
         #     new_storage[i] = self.storage[i]
         # # set the new to storage
         # self.storage = new_storage
-
-
+        pass
 
 if __name__ == "__main__":
     ht = HashTable(2)
