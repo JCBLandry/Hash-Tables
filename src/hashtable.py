@@ -86,14 +86,18 @@ class HashTable:
 
 
     def resize(self):
-        # self.capacity *= 2 # double the size
-        # new_storage = [None] * self.capacity
-        # # move all elements from old, into new
-        # for i in range(self.capacity):
-        #     new_storage[i] = self.storage[i]
-        # # set the new to storage
-        # self.storage = new_storage
-        pass
+        self.capacity = self.capacity * 2
+        newSize = self.storage
+        self.storage = [None] * self.capacity
+        for x in newSize:
+            if x == None:
+                pass
+            else:
+                k, v = x.key, x.value
+                self.insert(k,v)
+                while x.next:
+                    k, v = x.key, x.value
+                self.insert(k,v)
 
 if __name__ == "__main__":
     ht = HashTable(2)
