@@ -1,6 +1,7 @@
 # '''
 # Linked List hash table key/value pair
 # '''
+
 class LinkedPair:
     def __init__(self, key, value):
         self.key = key
@@ -18,11 +19,10 @@ class HashTable:
 
 
     def _hash(self, key):
-        '''
-        Hash an arbitrary key and return an integer.
-
-        You may replace the Python hash with DJB2 as a stretch goal.
-        '''
+        #  '''
+        # Hash an arbitrary key and return an integer.
+        # You may replace the Python hash with DJB2 as a stretch goal.
+        # '''
         return hash(key)
 
 
@@ -44,52 +44,60 @@ class HashTable:
 
 
     def insert(self, key, value):
-        '''
-        Store the value with the given key.
+        # Store the value with the given key.
+        i = self._hash_mod(key)
+        # # Part 1: Hash collisions should be handled with an error warning. (Think about and
+        # # investigate the impact this will have on the tests)
+        if self.storage[i] == None:
+            self.storage[i] = LinkedPair(key, value)
+            
+        else:
+            pos = self.storage[i]
+            while pos.next != None:
+                pos = pos.next
+            pos.next = LinkedPair(key, value)
+            print( 'Key: ' + key + ' and Value: ' + value + ' Inserted!')
+        # # Part 2: Change this so that hash collisions are handled with Linked List Chaining.
 
-        # Part 1: Hash collisions should be handled with an error warning. (Think about and
-        # investigate the impact this will have on the tests)
-
-        # Part 2: Change this so that hash collisions are handled with Linked List Chaining.
-
-        Fill this in.
-        '''
-        pass
-
-
+        # Fill this in.
+        # '''          
 
     def remove(self, key):
-        '''
-        Remove the value stored with the given key.
-
-        Print a warning if the key is not found.
-
-        Fill this in.
-        '''
-        pass
-
-
+        i = self._hash.mod(key)
+        # Print a warning if the key is not found.
+        if self.storage[i] == None:
+            print('Key not found!')
+        # Remove the value stored with the given key.
+        else:
+            self.storage[i] = None
+        
     def retrieve(self, key):
-        '''
-        Retrieve the value stored with the given key.
-
-        Returns None if the key is not found.
-
-        Fill this in.
-        '''
-        pass
+        i = self._hash_mod(key)
+        # Returns None if the key is not found.
+        if self.storage[i] == None:
+            return None
+        # Retrieve the value stored with the given key.
+        else:
+            pos = self.storage[i]
+            while pos.key != key:
+                pos = pos.next
+            return pos.value
+        
 
 
     def resize(self):
-        '''
-        Doubles the capacity of the hash table and
-        rehash all key/value pairs.
-
-        Fill this in.
-        '''
-        pass
-
-
+        self.capacity = self.capacity * 2
+        newSize = self.storage
+        self.storage = [None] * self.capacity
+        for x in newSize:
+            if x == None:
+                pass
+            else:
+                k, v = x.key, x.value
+                self.insert(k,v)
+                while x.next:
+                    k, v = x.key, x.value
+                self.insert(k,v)
 
 if __name__ == "__main__":
     ht = HashTable(2)
